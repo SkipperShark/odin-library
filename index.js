@@ -23,7 +23,11 @@ function Library(books) {
     }
 
     this.removeBook = function(bookIdToDelete) {
-        this.books = books.filter(book => book.id != bookIdToDelete)
+        log("remove book fn")
+        log({
+            "bookIdToDelete" : bookIdToDelete
+        })
+        this.books = this.books.filter(book => book.id != bookIdToDelete)
     }
 }
 
@@ -41,34 +45,36 @@ const myLibrary = new Library(
 )
 
 function updateDisplayedBooks() {
-    const shownBooks = document.getElementById("bookList").getElementsByTagName("li")
+    const shownBookList = document.getElementById("bookList")
+    const shownBooks = shownBookList.getElementsByTagName("li")
+    const shownBookIds = Array.from(shownBooks).map(li => li.getAttribute("id"))
 
     // ensure books that should not be shown are deleted
-    shownBooks.forEach((book) => {
-        if (!myLibrary.hasBook(book)) {
-            myLibrary.removeBook(book.id)
+    for (let shownBookId of shownBookIds) {
+        if (!myLibrary.hasBook(shownBookId)) {
+            myLibrary.removeBook(shownBookId)
+            document.getElementById(shownBookId).remove()
         }
-    })
+    }
 
     //ensure books that should be shown are shown
     myLibrary.books.forEach( (book) => {
-        if (shownBooks.includes(book.name)) return
+        if (shownBookIds.includes(book.id)) return
 
         const newLi = document.createElement("li")
         newLi.innerText = book.name
-        // newLi.setAttribute("id", bookName.id)
         newLi.setAttribute("id", book.id)
 
         const undoButton = document.createElement("button")
         undoButton.innerText = "Undo"
         undoButton.addEventListener("click", (e) => {
             e.preventDefault()
-            myLibrary.removeBookById(book.id)
+            myLibrary.removeBook(book.id)
             updateDisplayedBooks()
         })
-
+        
         newLi.appendChild(undoButton)
-        shownBooks.appendChild(newLi)
+        shownBookList.appendChild(newLi)
     })
 }
 
@@ -91,8 +97,6 @@ debugButton.addEventListener("click", (event) => {
     event.preventDefault()
     log(myLibrary)
 })
-
-//* end of base
 
 updateDisplayedBooks()
 
