@@ -7,7 +7,12 @@ function Library(books) {
     this.books = books
 
     this.hasBook = function(bookId) {
-        return this.books.find((book) => book.id == bookId)
+        return this.books.find((book) => book.id === bookId)
+    }
+
+    this.flipBookReadStatus = function(bookIdToUpdate) {
+        let book = this.books.find((book) => book.id === bookIdToUpdate)
+        book.isRead = !(book.isRead)
     }
 
     this.addNewBook = function(newBookName) {
@@ -23,10 +28,6 @@ function Library(books) {
     }
 
     this.removeBook = function(bookIdToDelete) {
-        log("remove book fn")
-        log({
-            "bookIdToDelete" : bookIdToDelete
-        })
         this.books = this.books.filter(book => book.id != bookIdToDelete)
     }
 }
@@ -36,7 +37,6 @@ function Book(name) {
     this.name = name
 }
 
-
 const myLibrary = new Library(
     [
         new Book("Harry Potter"),
@@ -44,39 +44,80 @@ const myLibrary = new Library(
     ]
 )
 
-function updateDisplayedBooks() {
+// function updateDisplayedBooks() {
+//     const shownBookList = document.getElementById("bookList")
+//     const shownBooks = shownBookList.getElementsByTagName("li")
+//     const shownBookIds = Array.from(shownBooks).map(li => li.getAttribute("id"))
+
+//     // ensure books that should not be shown are deleted
+//     for (let shownBookId of shownBookIds) {
+//         if (!myLibrary.hasBook(shownBookId)) {
+//             document.getElementById(shownBookId).remove()
+//         }
+//     }
+
+//     //ensure books that should be shown are shown
+//     myLibrary.books.forEach( (book) => {
+//         if (shownBookIds.includes(book.id)) return
+
+//         const newLi = document.createElement("li")
+//         newLi.innerText = book.name
+//         newLi.setAttribute("id", book.id)
+
+//         const readButton = document.createElement("button")
+//         readButton.innerText = "Read"
+//         readButton.addEventListener("click" (e) => {
+//             e.preventDefault()
+//             myLibrary
+//         })
+
+//         const undoButton = document.createElement("button")
+//         undoButton.innerText = "Undo"
+//         undoButton.addEventListener("click", (e) => {
+//             e.preventDefault()
+//             myLibrary.removeBook(book.id)
+//             updateDisplayedBooks()
+//         })
+        
+//         newLi.appendChild(undoButton)
+//         shownBookList.appendChild(newLi)
+//     })
+// }
+function updateShownBookList() {
     const shownBookList = document.getElementById("bookList")
-    const shownBooks = shownBookList.getElementsByTagName("li")
-    const shownBookIds = Array.from(shownBooks).map(li => li.getAttribute("id"))
 
-    // ensure books that should not be shown are deleted
-    for (let shownBookId of shownBookIds) {
-        if (!myLibrary.hasBook(shownBookId)) {
-            myLibrary.removeBook(shownBookId)
-            document.getElementById(shownBookId).remove()
-        }
-    }
+    // clear any current items
+    shownBookList.innerHTML = ""
 
-    //ensure books that should be shown are shown
-    myLibrary.books.forEach( (book) => {
-        if (shownBookIds.includes(book.id)) return
-
+    // Rerender library books
+    for (let book of myLibrary.books) {
+    
         const newLi = document.createElement("li")
         newLi.innerText = book.name
         newLi.setAttribute("id", book.id)
+    
+        const readButton = document.createElement("button")
+        readButton.innerText = book.isRead ? "Unread" : "Read"
+        readButton.addEventListener("click", (e) => {
+            e.preventDefault()
+            myLibrary.flipBookReadStatus(book.id)
+            updateShownBookList()
+        })
+        newLi.appendChild(readButton)
 
         const undoButton = document.createElement("button")
         undoButton.innerText = "Undo"
         undoButton.addEventListener("click", (e) => {
             e.preventDefault()
             myLibrary.removeBook(book.id)
-            updateDisplayedBooks()
+            updateShownBookList()
         })
         
         newLi.appendChild(undoButton)
         shownBookList.appendChild(newLi)
-    })
+    }
 }
+
 
 newBookButton.addEventListener("click", (event) => {
     event.preventDefault()
@@ -84,11 +125,11 @@ newBookButton.addEventListener("click", (event) => {
     const form = document.getElementById("newBookForm")
     const formData = new FormData(form)
     const bookName = formData.get("bookName")
-    newBookAdded = myLibrary.addNewBook(bookName)
+    let newBookAdded = myLibrary.addNewBook(bookName)
     if (!newBookAdded) {
         alert("This book was already added!")
     }
-    updateDisplayedBooks()
+    updateShownBookList()
     form.reset()
 })
 
@@ -98,6 +139,6 @@ debugButton.addEventListener("click", (event) => {
     log(myLibrary)
 })
 
-updateDisplayedBooks()
+updateShownBookList()
 
 // log(myLibrary)
