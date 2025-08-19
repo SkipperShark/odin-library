@@ -93,9 +93,15 @@ function updateShownBookList() {
     for (let book of myLibrary.books) {
     
         const newLi = document.createElement("li")
-        newLi.innerText = `📕 ${book.name}`
         newLi.setAttribute("id", book.id)
+        newLi.className = "bookItem"
+
+        const bookText = document.createElement("p")
+        bookText.innerText = `${book.name}`
+        newLi.appendChild(bookText)
     
+        const btnDiv = document.createElement("div")
+        btnDiv.className = "bookActions"
         const readButton = document.createElement("button")
         readButton.innerText = book.isRead ? "Unread" : "Read"
         readButton.addEventListener("click", (e) => {
@@ -103,7 +109,7 @@ function updateShownBookList() {
             myLibrary.flipBookReadStatus(book.id)
             updateShownBookList()
         })
-        newLi.appendChild(readButton)
+        btnDiv.appendChild(readButton)
 
         const removeButton = document.createElement("button")
         removeButton.innerText = "Remove"
@@ -113,7 +119,10 @@ function updateShownBookList() {
             updateShownBookList()
         })
         
-        newLi.appendChild(removeButton)
+        btnDiv.appendChild(removeButton)
+
+        newLi.appendChild(btnDiv)
+
         shownBookList.appendChild(newLi)
     }
 }

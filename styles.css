@@ -18,8 +18,26 @@ body {
     --general-spacing: 10px;
 }
 
+button {
+    background: blue;
+    color: white;
+    border: none;
+    padding: var(--general-spacing);
+}
+
 .libraryCard {
     padding: var(--general-spacing);
     border: 1px solid purple;
     background-color: white;
+
+    .bookItem {
+        border: 1px solid black;
+        display: grid;
+        grid-template-columns: 1fr max-content;
+
+        .bookActions {
+            grid-column: 2;
+            display: inline-block
+        }
+    }
 }
