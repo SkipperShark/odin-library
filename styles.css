@@ -2,10 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    list-style: none;
 }
 
 body {
     background-color: darkslateblue;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 :root {
@@ -13,7 +19,7 @@ body {
 }
 
 .libraryCard {
-    width: 50%;
+    padding: var(--general-spacing);
     border: 1px solid purple;
     background-color: white;
 }
