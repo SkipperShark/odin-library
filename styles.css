@@ -1,11 +1,19 @@
-button {
-    margin: 0 10px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-li {
-    margin: 0 10px;
+body {
+    background-color: darkslateblue;
+}
+
+:root {
+    --general-spacing: 10px;
 }
 
 .libraryCard {
+    width: 50%;
     border: 1px solid purple;
+    background-color: white;
 }
