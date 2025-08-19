@@ -93,7 +93,7 @@ function updateShownBookList() {
     for (let book of myLibrary.books) {
     
         const newLi = document.createElement("li")
-        newLi.innerText = book.name
+        newLi.innerText = `📕 ${book.name}`
         newLi.setAttribute("id", book.id)
     
         const readButton = document.createElement("button")
@@ -105,15 +105,15 @@ function updateShownBookList() {
         })
         newLi.appendChild(readButton)
 
-        const undoButton = document.createElement("button")
-        undoButton.innerText = "Undo"
-        undoButton.addEventListener("click", (e) => {
+        const removeButton = document.createElement("button")
+        removeButton.innerText = "Remove"
+        removeButton.addEventListener("click", (e) => {
             e.preventDefault()
             myLibrary.removeBook(book.id)
             updateShownBookList()
         })
         
-        newLi.appendChild(undoButton)
+        newLi.appendChild(removeButton)
         shownBookList.appendChild(newLi)
     }
 }

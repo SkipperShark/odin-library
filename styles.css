@@ -5,3 +5,7 @@ button {
 li {
     margin: 0 10px;
 }
+
+.libraryCard {
+    border: 1px solid purple;
+}
