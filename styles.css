@@ -25,6 +25,13 @@ button {
     padding: var(--general-spacing);
 }
 
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .libraryCard {
     box-shadow: 0 0 10px white;
     background-color: white;
@@ -32,8 +39,7 @@ button {
     grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
         "header"
-        "bookList"
-        "newBookForm";
+        "bookList";
 
     >.title {
         grid-area: header;
@@ -64,13 +70,16 @@ button {
         }
     }
 
-    .newBookForm {
-        grid-area: newBookForm;
-        padding: var(--general-spacing);
-    }
-
-
     .bookItem:last-child {
         border: none;
+    }
+    
+    .newBookForm {
+        padding: var(--general-spacing);
+    
+    }
+    .formButtons {
+        display: flex;
+        justify-content: space-between;
     }
 }

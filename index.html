@@ -15,17 +15,21 @@
       </ul>
     </div>
     <button id="newBookButton">New Book</button>
+
     <dialog id="newBookDialog">
       <form action="" method="" id="newBookForm" class="newBookForm">
         <fieldset>
-          <legend>New Book</legend>
-          <label for="bookName">Book Name</label>
+          <h3>New Book</h3>
+          <label for="bookName">Add a new book</label>
           <input type="text" name="bookName" id="bookName" required>
-          <button type="submit" id="submitNewBookButton">Submit</button>
+          <div class="formButtons">
+            <button type="button" id ="closeFormButton">Close</button>
+            <button type="submit" id="submitNewBookButton">Submit</button>
+          </div>
         </fieldset>
       </form>
     </dialog>
-    <button id="debugButton">Debug</button>
+    
   </main>
 </body>
 </html>

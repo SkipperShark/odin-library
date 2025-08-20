@@ -5,6 +5,7 @@ const submitNewBookButton = document.getElementById("submitNewBookButton")
 const debugButton = document.getElementById("debugButton")
 const dialog = document.getElementById("newBookDialog")
 const form = document.getElementById("newBookForm")
+const closeFormButton = document.getElementById("closeFormButton")
 
 function Library(books) {
     this.books = books
@@ -159,18 +160,19 @@ form.addEventListener("submit", (event) => {
     let newBookAdded = myLibrary.addNewBook(bookName)
     if (!newBookAdded) {
         alert("This book was already added!")
+        form.reset()
+        return
     }
     updateShownBookList()
-    // form.reset()
+    form.reset()
     dialog.close()
 })
 
 
-debugButton.addEventListener("click", (event) => {
-    event.preventDefault()
-    log(myLibrary)
+closeFormButton.addEventListener("click", (e) => {
+    e.preventDefault()
+    dialog.close()
 })
 
-updateShownBookList()
 
-// log(myLibrary)
+updateShownBookList()
