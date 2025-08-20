@@ -103,7 +103,8 @@ function updateShownBookList() {
         const btnDiv = document.createElement("div")
         btnDiv.className = "bookActions"
         const readButton = document.createElement("button")
-        readButton.innerText = book.isRead ? "Unread" : "Read"
+        readButton.innerText = book.isRead ? "Read" : "Unread"
+        readButton.className = book.isRead ? "read" : "unread"
         readButton.addEventListener("click", (e) => {
             e.preventDefault()
             myLibrary.flipBookReadStatus(book.id)

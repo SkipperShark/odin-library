@@ -26,18 +26,51 @@ button {
 }
 
 .libraryCard {
-    padding: var(--general-spacing);
-    border: 1px solid purple;
+    box-shadow: 0 0 10px white;
     background-color: white;
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    grid-template-areas:
+        "header"
+        "bookList"
+        "newBookForm";
 
-    .bookItem {
-        border: 1px solid black;
-        display: grid;
-        grid-template-columns: 1fr max-content;
+    >.title {
+        grid-area: header;
+        background-color: indigo;
+        color: white;
+        text-align: center;
+        padding: var(--general-spacing);
+    }
 
-        .bookActions {
-            grid-column: 2;
-            display: inline-block
+    .bookList {
+        grid-area: bookList;
+        padding: var(--general-spacing);
+
+        .bookItem {
+            display: grid;
+            grid-template-columns: 1fr max-content;
+            margin: var(--general-spacing) 0;
+    
+            .bookActions {
+                grid-column: 2;
+                display: inline-flex;
+                gap: var(--general-spacing);
+            }
+
+            .read {
+                background-color: grey;
+            }
         }
+    }
+
+    .newBookForm {
+        grid-area: newBookForm;
+        padding: var(--general-spacing);
+    }
+
+
+    .bookItem:last-child {
+        border: none;
     }
 }
