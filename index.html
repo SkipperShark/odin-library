@@ -14,14 +14,17 @@
       <ul id="bookList">
       </ul>
     </div>
-    <form action="" method="" id="newBookForm" class="newBookForm">
-      <fieldset>
-        <legend>New Book</legend>
-        <label for="bookName">Book Name</label>
-        <input type="text" name="bookName" id="bookName">
-        <button type="button" id="newBookButton">New book</button>
-      </fieldset>
-    </form>
+    <button id="newBookButton">New Book</button>
+    <dialog id="newBookDialog">
+      <form action="" method="" id="newBookForm" class="newBookForm">
+        <fieldset>
+          <legend>New Book</legend>
+          <label for="bookName">Book Name</label>
+          <input type="text" name="bookName" id="bookName" required>
+          <button type="submit" id="submitNewBookButton">Submit</button>
+        </fieldset>
+      </form>
+    </dialog>
     <button id="debugButton">Debug</button>
   </main>
 </body>

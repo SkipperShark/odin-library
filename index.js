@@ -1,7 +1,10 @@
 let log = console.log
 const bookList = document.getElementById("bookList")
 const newBookButton = document.getElementById("newBookButton")
+const submitNewBookButton = document.getElementById("submitNewBookButton")
 const debugButton = document.getElementById("debugButton")
+const dialog = document.getElementById("newBookDialog")
+const form = document.getElementById("newBookForm")
 
 function Library(books) {
     this.books = books
@@ -128,11 +131,29 @@ function updateShownBookList() {
     }
 }
 
-
 newBookButton.addEventListener("click", (event) => {
     event.preventDefault()
+    log("test")
+    dialog.showModal()
+})
 
-    const form = document.getElementById("newBookForm")
+
+// submitNewBookButton.addEventListener("click", (event) => {
+//     event.preventDefault()
+
+//     const form = document.getElementById("newBookForm")
+//     const formData = new FormData(form)
+//     const bookName = formData.get("bookName")
+//     let newBookAdded = myLibrary.addNewBook(bookName)
+//     if (!newBookAdded) {
+//         alert("This book was already added!")
+//     }
+//     updateShownBookList()
+//     // form.reset()
+//     dialog.close()
+// })
+form.addEventListener("submit", (event) => {
+    event.preventDefault()
     const formData = new FormData(form)
     const bookName = formData.get("bookName")
     let newBookAdded = myLibrary.addNewBook(bookName)
@@ -140,7 +161,8 @@ newBookButton.addEventListener("click", (event) => {
         alert("This book was already added!")
     }
     updateShownBookList()
-    form.reset()
+    // form.reset()
+    dialog.close()
 })
 
 
